@@ -1,0 +1,9 @@
+{
+  "name": "kit-timetable-schema",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/f0reachARR/kit-timetable",
+  "author": "f0reachARR <f0reach@f0reach.me>",
+  "license": "MIT",
+  "private": true
+}
