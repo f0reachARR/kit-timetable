@@ -5,5 +5,8 @@
   "repository": "https://github.com/f0reachARR/kit-timetable",
   "author": "f0reachARR <f0reach@f0reach.me>",
   "license": "MIT",
-  "private": true
+  "dependencies": {
+    "express": "^4.17.1",
+    "graphql": "^15.3.0"
+  }
 }
