@@ -2,7 +2,11 @@ import { Client } from '@elastic/elasticsearch';
 import { injectable, inject } from 'inversify';
 import { SyllabusSubjectEntity } from '../../entities/syllabus-subject';
 import { Config } from '../../frameworks/config';
-import { GetResponse, SearchResponse } from '../../frameworks/elasticsearch';
+import {
+  GetResponse,
+  SearchResponse,
+  ElasticsearchConnection,
+} from '../../frameworks/elasticsearch';
 import {
   SyllabusSubjectRepository,
   SyllabusSubjectRepositoryFindRequest,
@@ -13,13 +17,15 @@ import { TYPES } from '../../types';
 @injectable()
 export class SyllabusSubjectGateway implements SyllabusSubjectRepository {
   private readonly indexName: string;
+  private readonly elasticsearch: Client;
   constructor(
     @inject(TYPES.Elasticsearch)
-    readonly elasticsearch: Client,
+    readonly connection: ElasticsearchConnection,
     @inject(TYPES.Config)
     readonly config: Config,
   ) {
     this.indexName = config.getElasticsearchIndexFor('subjects');
+    this.elasticsearch = connection.client;
   }
 
   async init() {}
