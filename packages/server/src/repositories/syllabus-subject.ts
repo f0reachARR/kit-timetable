@@ -3,7 +3,7 @@ import { SyllabusSubjectEntity } from '../entities/syllabus-subject';
 export interface SyllabusSubjectRepositoryQuery {
   date?: number;
   hour?: number;
-  type?: 'intensive';
+  type?: 'intensive' | 'fixed';
   year?: number;
   semester?: string;
   available?: boolean;

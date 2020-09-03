@@ -62,6 +62,14 @@ export class SyllabusSubjectGateway implements SyllabusSubjectRepository {
       });
     }
 
+    if (query.type === 'fixed') {
+      must.push({
+        terms: {
+          'categories.schedule.type': ['fixed'],
+        },
+      });
+    }
+
     if (typeof query.date === 'number') {
       must.push({
         terms: {
