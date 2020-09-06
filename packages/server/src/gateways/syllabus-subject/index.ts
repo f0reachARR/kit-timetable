@@ -2,11 +2,7 @@ import { Client } from '@elastic/elasticsearch';
 import { injectable, inject } from 'inversify';
 import { SyllabusSubjectEntity } from '../../entities/syllabus-subject';
 import { Config } from '../../frameworks/config';
-import {
-  GetResponse,
-  SearchResponse,
-  ElasticsearchConnection,
-} from '../../frameworks/elasticsearch';
+import { GetResponse, SearchResponse } from '../../frameworks/elasticsearch';
 import {
   SyllabusSubjectRepository,
   SyllabusSubjectRepositoryFindRequest,
@@ -17,21 +13,19 @@ import { TYPES } from '../../types';
 @injectable()
 export class SyllabusSubjectGateway implements SyllabusSubjectRepository {
   private readonly indexName: string;
-  private readonly elasticsearch: Client;
   constructor(
     @inject(TYPES.Elasticsearch)
-    readonly connection: ElasticsearchConnection,
+    readonly connection: Client,
     @inject(TYPES.Config)
     readonly config: Config,
   ) {
     this.indexName = config.getElasticsearchIndexFor('subjects');
-    this.elasticsearch = connection.client;
   }
 
   async init() {}
 
   async get(id: number) {
-    const result = await this.elasticsearch.get<
+    const result = await this.connection.get<
       GetResponse<SyllabusSubjectEntity>
     >({
       id: `${id}`,
@@ -129,7 +123,7 @@ export class SyllabusSubjectGateway implements SyllabusSubjectRepository {
 
   async find(request: SyllabusSubjectRepositoryFindRequest) {
     const query = this.createQuery(request.query);
-    const result = await this.elasticsearch.search<
+    const result = await this.connection.search<
       SearchResponse<SyllabusSubjectEntity>
     >({
       index: this.indexName,
