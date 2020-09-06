@@ -1,3 +1,6 @@
+import { Client } from '@elastic/elasticsearch';
+import { Config } from './config';
+
 export type GetResponse<TSource> =
   | { found: false }
   | {
@@ -21,3 +24,17 @@ export interface SearchResponse<TSource> {
     }>;
   };
 }
+
+export const createElasticsearchClient = async (config: Config) => {
+  const client = new Client({
+    node: config.elasticsearch.host,
+  });
+
+  const { statusCode } = await client.ping();
+
+  if (statusCode !== 200) {
+    throw new Error('elasticsearch connection error');
+  }
+
+  return client;
+};
