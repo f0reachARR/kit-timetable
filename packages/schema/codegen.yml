@@ -1,0 +1,9 @@
+overwrite: true
+schema:
+  - "./*.graphql"
+  - "!./dist/*"
+documents: null
+generates:
+  ./dist/schema.graphql:
+    plugins:
+      - "schema-ast"

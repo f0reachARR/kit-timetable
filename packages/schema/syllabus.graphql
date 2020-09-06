@@ -1,0 +1,110 @@
+enum SubjectFlags {
+  internship,
+  igp,
+  al,
+  pbl,
+  pt,
+  univ3,
+  kyoto,
+  lottery
+}
+
+type SubjectInstructor {
+  id: ID
+  name: String!
+}
+
+enum SubjectScheduleType {
+  intensive,
+  fixed,
+  unknown
+}
+
+type SubjectDate {
+  date: Int!
+  hour: Int!
+}
+
+type SubjectSchedule {
+  type: SubjectScheduleType!
+  days: [SubjectDate!]
+}
+
+type SubjectCategory {
+  faculty: String
+  field: String
+  program: String
+  category: String
+  semester: String!
+  available: Boolean!
+  year: [Int!]!
+  schedule: [SubjectSchedule!]!
+}
+
+type SubjectPlan {
+  topic: String!
+  content: String
+}
+
+type SubjectGoalEvaluation {
+  label: String!
+  description: String!
+}
+
+type SubjectGoal {
+  description: String!
+  evaluations: [SubjectGoalEvaluation!]!
+}
+
+type SubjectAttachment {
+  key: ID!
+  name: String!
+}
+
+type Subject {
+  id: ID!
+  timetableId: ID
+  courseId: ID
+  credits: Int
+  title: String!
+  flags: [SubjectFlags!]!
+  instructors: [SubjectInstructor!]!
+  categories: [SubjectCategory!]!
+  outline: String!
+  purpose: String!
+  requirement: String!
+  point: String!
+  textbook: String!
+  gradingPolicy: String!
+  remark: String!
+  researchPlan: String!
+  type: String
+  code: String
+  class: String
+  attachments: [SubjectAttachment!]!
+}
+
+type SubjectSearchResult {
+  total: Int!
+  items: [Subject!]!
+}
+
+enum SubjectScheduleSearchType {
+  intensive,
+  fixed
+}
+
+input SubjectSearchQuery {
+  date: Int
+  hour: Int
+  type: SubjectScheduleSearchType
+  year: Int
+  semester: String
+  available: Boolean
+  flags: [SubjectFlags!]
+  title: String
+}
+
+extend type Query {
+  subjects(query: SubjectSearchQuery, from: Int, count: Int): SubjectSearchResult!
+}
