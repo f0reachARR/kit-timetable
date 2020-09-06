@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 import { Client } from '@elastic/elasticsearch';
 import { Container, decorate, injectable } from 'inversify';
 import { Config } from './frameworks/config';
@@ -8,6 +10,7 @@ import {
   usecaseContainer,
 } from './frameworks/containers';
 import { createElasticsearchClient } from './frameworks/elasticsearch';
+import { Server } from './frameworks/server';
 import { TYPES } from './types';
 
 (async () => {
@@ -25,4 +28,6 @@ import { TYPES } from './types';
   const esClient = await createElasticsearchClient(config);
 
   container.bind<Client>(TYPES.Elasticsearch).toConstantValue(esClient);
+
+  await container.get<Server>(TYPES.Server).start();
 })();

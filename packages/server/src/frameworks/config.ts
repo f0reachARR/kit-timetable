@@ -7,11 +7,13 @@ interface ElasticsearchConfig {
 
 export interface Config {
   elasticsearch: ElasticsearchConfig;
+  port: number;
   getElasticsearchIndexFor(name: string): string;
 }
 
 export class ConfigImpl implements Config {
   readonly elasticsearch: ElasticsearchConfig;
+  readonly port: number;
   constructor() {
     dotenv();
 
@@ -19,6 +21,8 @@ export class ConfigImpl implements Config {
       host: process.env.ES_HOST ?? 'http://127.0.0.1:9200',
       indexPrefix: process.env.ES_INDEX_PREFIX ?? 'kittimetable',
     };
+
+    this.port = Number(process.env.PORT ?? 3000);
   }
 
   getElasticsearchIndexFor(name: string) {
