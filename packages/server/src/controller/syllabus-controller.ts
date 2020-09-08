@@ -1,30 +1,38 @@
 import { injectable, inject } from 'inversify';
-import { SyllabusSubjectPresenter } from '../presenters/syllabus-subject-presenter';
+import { SubjectSearchQuery } from '../frameworks/server/graphql.generated';
+import { FindSyllabusPresenter } from '../presenters/find-syllabus-presenter';
 import { TYPES } from '../types';
-import {
-  FindSyllabusUsecase,
-  FindSyllabusQuery,
-} from '../usecases/find-syllabus';
+import { FindSyllabusUsecase } from '../usecases/find-syllabus';
 
 @injectable()
 export class SyllabusController {
   constructor(
     @inject(TYPES.FindSyllabusUsecase)
-    readonly findSyllabus: FindSyllabusUsecase,
-    @inject(SyllabusSubjectPresenter)
-    readonly syllabusSubjectPresenter: SyllabusSubjectPresenter,
+    private readonly findSyllabus: FindSyllabusUsecase,
+    @inject(FindSyllabusPresenter)
+    private readonly findSyllabusPresenter: FindSyllabusPresenter,
   ) {}
 
-  async find(query: FindSyllabusQuery, from?: number, count?: number) {
-    const { items, totalCount } = await this.findSyllabus.run({
-      query,
-      from,
-      count,
+  async find(
+    query?: SubjectSearchQuery | null,
+    from?: number | null,
+    count?: number | null,
+  ) {
+    const response = await this.findSyllabus.run({
+      query: {
+        date: query?.date ?? undefined,
+        hour: query?.hour ?? undefined,
+        type: query?.type ?? undefined,
+        year: query?.year ?? undefined,
+        semester: query?.semester ?? undefined,
+        available: query?.available ?? undefined,
+        flags: query?.flags ?? undefined,
+        title: query?.title ?? undefined,
+      },
+      from: from ?? undefined,
+      count: count ?? undefined,
     });
 
-    return {
-      items: items.map((entity) => this.syllabusSubjectPresenter.run(entity)),
-      totalCount,
-    };
+    return this.findSyllabusPresenter.run(response);
   }
 }
