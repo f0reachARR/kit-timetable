@@ -38,7 +38,7 @@ type SubjectCategory {
   semester: String!
   available: Boolean!
   year: [Int!]!
-  schedule: [SubjectSchedule!]!
+  schedule: SubjectSchedule!
 }
 
 type SubjectPlan {
@@ -63,8 +63,8 @@ type SubjectAttachment {
 
 type Subject {
   id: ID!
-  timetableId: ID
-  courseId: ID
+  timetableId: Int
+  courseId: Int
   credits: Int
   title: String!
   flags: [SubjectFlags!]!
