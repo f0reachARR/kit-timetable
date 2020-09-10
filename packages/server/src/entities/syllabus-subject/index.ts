@@ -1,16 +1,16 @@
 import { EntityBase } from '../base';
 
-interface SubjectClassPlan {
+export interface SubjectClassPlan {
   topic: string;
   content?: string;
 }
 
-interface SubjectInstructor {
+export interface SubjectInstructor {
   id?: string;
   name: string;
 }
 
-interface SubjectGoal {
+export interface SubjectGoal {
   description: string;
   evaluations: Array<{
     label: string;
@@ -18,7 +18,7 @@ interface SubjectGoal {
   }>;
 }
 
-interface SubjectSchedule {
+export interface SubjectSchedule {
   type: 'intensive' | 'fixed' | 'unknown';
   days?: Array<{
     date: number;
@@ -26,7 +26,7 @@ interface SubjectSchedule {
   }>;
 }
 
-interface SubjectCategory {
+export interface SubjectCategory {
   faculty?: string;
   field?: string;
   program?: string;
@@ -37,11 +37,17 @@ interface SubjectCategory {
   schedule: SubjectSchedule;
 }
 
+export interface SubjectAttachment {
+  key: string;
+  name: string;
+}
+
 export class SyllabusSubjectEntity extends EntityBase {
   readonly id!: number;
   readonly title!: string;
   readonly categories!: SubjectCategory[];
   readonly instructors!: SubjectInstructor[];
+  readonly attachments!: SubjectAttachment[];
   readonly flags!: Array<
     'internship' | 'igp' | 'al' | 'pbl' | 'pt' | 'univ3' | 'kyoto' | 'lottery'
   >;
