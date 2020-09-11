@@ -1,4 +1,4 @@
-import { injectable, inject } from 'inversify/dts/inversify';
+import { injectable, inject } from 'inversify';
 import { SyllabusController } from '../../controller/syllabus-controller';
 
 export interface GraphQLContext {
