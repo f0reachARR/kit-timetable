@@ -26,7 +26,7 @@ export class SyllabusController {
         year: query?.year ?? undefined,
         semester: query?.semester ?? undefined,
         available: query?.available ?? undefined,
-        flags: query?.flags ?? undefined,
+        flags: query?.flags?.slice() ?? undefined,
         title: query?.title ?? undefined,
       },
       from: from ?? undefined,
