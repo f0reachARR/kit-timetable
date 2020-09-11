@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run server",
+      "type": "node",
+      "request": "launch",
+      "address": "localhost",
+      "protocol": "inspector",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/lerna",
+      "runtimeArgs": [
+        "exec",
+        "--scope",
+        "kit-timetable-server",
+        "--",
+        "node"
+      ],
+      "program": "${workspaceRoot}/packages/server/src/app.ts",
+      "cwd": "${workspaceRoot}/packages/server/",
+      "outFiles": [
+        "${workspaceRoot}/packages/server/dist/**/*.js"
+      ],
+      "sourceMaps": true,
+      "preLaunchTask": "build-kit-timetable-server"
+    }
+  ]
+}

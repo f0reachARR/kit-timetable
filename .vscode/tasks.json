@@ -1,0 +1,14 @@
+{
+  "tasks": [
+    {
+      "label": "build-kit-timetable-server",
+      "type": "typescript",
+      "tsconfig": "packages/server/tsconfig.json",
+      "problemMatcher": [
+        "$tsc"
+      ],
+      "group": "build"
+    }
+  ],
+  "version": "2.0.0"
+}
