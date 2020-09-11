@@ -18,6 +18,7 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "pretty": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true
   }
 }

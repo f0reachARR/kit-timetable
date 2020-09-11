@@ -1,4 +1,5 @@
 import { config as dotenv } from 'dotenv';
+import { injectable } from 'inversify';
 
 interface ElasticsearchConfig {
   host: string;
@@ -11,6 +12,7 @@ export interface Config {
   getElasticsearchIndexFor(name: string): string;
 }
 
+@injectable()
 export class ConfigImpl implements Config {
   readonly elasticsearch: ElasticsearchConfig;
   readonly port: number;
