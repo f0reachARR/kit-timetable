@@ -83,7 +83,7 @@ export class SyllabusSubjectGateway implements SyllabusSubjectRepository {
     if (typeof query.year === 'number') {
       must.push({
         terms: {
-          'categories.schedule.year': [query.year],
+          'categories.year': [query.year],
         },
       });
     }
@@ -91,7 +91,7 @@ export class SyllabusSubjectGateway implements SyllabusSubjectRepository {
     if (typeof query.semester === 'string') {
       must.push({
         terms: {
-          'categories.schedule.semester': [query.semester],
+          'categories.semester': [query.semester],
         },
       });
     }
