@@ -6,7 +6,8 @@
   "author": "f0reachARR <f0reach@f0reach.me>",
   "license": "MIT",
   "scripts": {
-    "build:codegen": "gql-gen"
+    "build:codegen": "gql-gen",
+    "build:tsc": "tsc -p ."
   },
   "dependencies": {
     "@elastic/elasticsearch": "^7.9.0",

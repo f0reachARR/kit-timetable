@@ -10,3 +10,5 @@ generates:
       - typescript-resolvers
 config:
   contextType: ./context#GraphQLContext
+  useIndexSignature: true
+  immutableTypes: true
