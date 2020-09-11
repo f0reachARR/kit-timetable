@@ -6,6 +6,7 @@ import { injectable, inject, interfaces } from 'inversify';
 import { TYPES } from '../../types';
 import { Config } from '../config';
 import { GraphQLContext } from './context';
+import { resolvers } from './resolvers';
 
 export interface Server {
   start(): Promise<void>;
@@ -26,6 +27,7 @@ export class ServerImpl implements Server {
     const app = express();
     const apollo = new ApolloServer({
       typeDefs,
+      resolvers,
       context: () => this.createContext(),
     });
 
