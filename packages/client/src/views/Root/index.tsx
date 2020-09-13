@@ -9,6 +9,7 @@ export const RootView = () => {
       <>
         <Header />
         <RouterSwitch>
+          <Route path='/search' component={SubjectSearch} />
         </RouterSwitch>
       </>
     </BrowserRouter>
