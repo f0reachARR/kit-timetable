@@ -4,8 +4,14 @@ schema:
   - "./node_modules/kit-timetable-schema/dist/schema.graphql"
 documents:
   - "./graphql/**/*.graphql"
+  - "./graphql/*.graphql"
 generates:
   ./src/api/graphql.generated.ts:
     plugins:
       - typescript
       - typescript-operations
+      - typescript-react-apollo
+config:
+  withHooks: true
+  withComponent: false
+  withHOC: false
