@@ -9,20 +9,23 @@ type Props = {
 };
 
 export const SearchSimpleForm = (props: Props) => {
-  const [titleQuery, setTitleQuery] = React.useState('');
-
-  const updateQuery = React.useCallback(() => {
-    props.onQueryChange({
-      title: titleQuery,
-    });
-  }, [props.onQueryChange, titleQuery]);
+  const updateQuery = React.useCallback(
+    (merge: SubjectSearchQuery) => {
+      props.onQueryChange({
+        ...props.query,
+        ...merge,
+      });
+    },
+    [props.onQueryChange, props.query],
+  );
 
   const handleChangeTitleQuery = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setTitleQuery(e.target.value);
-      updateQuery();
+      updateQuery({
+        title: e.target.value,
+      });
     },
-    [setTitleQuery],
+    [updateQuery],
   );
 
   return (
@@ -31,7 +34,7 @@ export const SearchSimpleForm = (props: Props) => {
       fill
       placeholder='Title...'
       leftIcon='search'
-      value={titleQuery}
+      value={props.query.title || ''}
       onChange={handleChangeTitleQuery}
       rightElement={
         props.isLoading ? <Spinner size={Spinner.SIZE_SMALL} /> : undefined
