@@ -1,0 +1,28 @@
+fragment SubjectSimple on Subject {
+  id
+  title
+  flags
+  credits
+  instructors {
+    name
+  }
+  categories {
+    year
+    schedule {
+      type
+      days {
+        date
+        hour
+      }
+    }
+  }
+}
+
+query findSubject($query: SubjectSearchQuery, $from: Int, $count: Int) {
+  subjects(query: $query, from: $from, count: $count) {
+    total
+    items {
+      ...SubjectSimple
+    }
+  }
+}

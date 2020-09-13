@@ -8,7 +8,8 @@
   "private": true,
   "scripts": {
     "start": "parcel serve ./src/index.html",
-    "build": "parcel build ./src/index.html"
+    "build:parcel": "parcel build ./src/index.html",
+    "build:codegen": "gql-gen"
   },
   "engines": {
     "browsers": "> 0.25%"
@@ -16,6 +17,9 @@
   "devDependencies": {
     "@blueprintjs/core": "^3.31.0",
     "@blueprintjs/icons": "^3.20.1",
+    "@graphql-codegen/cli": "^1.17.8",
+    "@graphql-codegen/typescript": "1.13.0",
+    "@graphql-codegen/typescript-operations": "1.13.0",
     "@parcel/transformer-postcss": "^2.0.0-alpha.3",
     "@parcel/validator-typescript": "^2.0.0-beta.1",
     "@types/react-dom": "^16.9.8",
