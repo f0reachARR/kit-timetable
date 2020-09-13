@@ -14,8 +14,11 @@
     "browsers": "> 0.25%"
   },
   "devDependencies": {
+    "@blueprintjs/core": "^3.31.0",
+    "@blueprintjs/icons": "^3.20.1",
     "@parcel/validator-typescript": "^2.0.0-beta.1",
     "@types/react-dom": "^16.9.8",
+    "clsx": "^1.1.1",
     "parcel": "^2.0.0-beta.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
