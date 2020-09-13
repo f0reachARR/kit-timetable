@@ -1,12 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Header } from './components/shared/Header';
+import { RootView } from './views/Root';
 
 const main = document.querySelector('main');
 
-render(
-  <>
-    <Header />
-  </>,
-  main,
-);
+render(<RootView />, main);
