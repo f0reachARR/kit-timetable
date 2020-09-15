@@ -1,23 +1,24 @@
+import { NonIdealState } from '@blueprintjs/core';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useDebouncedCallback } from 'use-debounce';
 import {
-  useFindSubjectLazyQuery,
   SubjectSearchQuery,
+  useFindSubjectQuery,
 } from '../../api/graphql.generated';
 import { SearchSimpleForm } from '../../components/subject/SearchSimpleForm';
+import { SubjectListItem } from '../../components/subject/SubjectListItem';
 
 export const SubjectSearch = () => {
   const [query, setQuery] = React.useState<SubjectSearchQuery>({});
-  const [dispatchSearch, { called, loading }] = useFindSubjectLazyQuery();
+  const { refetch, loading, data } = useFindSubjectQuery();
 
   const [debouncedSearch] = useDebouncedCallback(
     (query: SubjectSearchQuery) => {
-      dispatchSearch({
-        variables: {
-          query,
-          from: 0,
-          count: 20,
-        },
+      refetch({
+        query,
+        from: 0,
+        count: 20,
       });
     },
     500,
@@ -38,7 +39,26 @@ export const SubjectSearch = () => {
         isLoading={loading}
         onQueryChange={handleQueryChange}
       />
-      {called && <div>nyaa</div>}
+      {!loading &&
+        (data?.subjects.total === 0 ? (
+          <NonIdealState icon='search' title='No results' />
+        ) : (
+          <>
+            <div>{data?.subjects.total}件</div>
+            <ul className='list-none'>
+              {data?.subjects.items.map((item) => (
+                <li
+                  key={item.id}
+                  className='border-gray-500 border-b py-2 md:px-1'
+                >
+                  <Link to={`/subject/${item.id}`} className='text-blue-500'>
+                    <SubjectListItem item={item} />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </>
+        ))}
     </div>
   );
 };

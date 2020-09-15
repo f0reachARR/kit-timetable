@@ -3,6 +3,7 @@ fragment SubjectSimple on Subject {
   title
   flags
   credits
+  class
   instructors {
     name
   }
