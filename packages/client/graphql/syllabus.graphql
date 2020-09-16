@@ -9,6 +9,7 @@ fragment SubjectSimple on Subject {
   }
   categories {
     year
+    semester
     schedule {
       type
       days {
