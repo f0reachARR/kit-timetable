@@ -30,14 +30,16 @@ const createDateLabel = (item: SubjectSimpleFragment) => {
 
 export const SubjectListItem = ({ item }: { item: SubjectSimpleFragment }) => {
   return (
-    <>
-      <h2 className='inline text-xl text-semibold'>{item.title}</h2>
-      <h3 className='inline mx-3'>{item.class}</h3>
+    <div className='flex justify-between'>
+      <div>
+        <h2 className='inline text-xl text-semibold truncate'>{item.title}</h2>
+        <h3 className='inline mx-3'>{item.class}</h3>
+      </div>
       {item.credits && (
         <span className='float-right leading-6 invisible sm:visible'>
           {createDateLabel(item)} {item.credits}単位
         </span>
       )}
-    </>
+    </div>
   );
 };
