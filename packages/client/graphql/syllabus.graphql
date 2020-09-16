@@ -27,3 +27,11 @@ query findSubject($query: SubjectSearchQuery, $from: Int, $count: Int) {
     }
   }
 }
+
+query getSubjectSearchTerms {
+  subjectSearchTerms {
+    semesters
+    years
+    hours
+  }
+}
