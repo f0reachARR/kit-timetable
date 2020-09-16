@@ -105,6 +105,13 @@ input SubjectSearchQuery {
   title: String
 }
 
+type SubjectSearchTerms {
+  semesters: [String!]!
+  years: [Int!]!
+  hours: [Int!]!
+}
+
 extend type Query {
   subjects(query: SubjectSearchQuery, from: Int, count: Int): SubjectSearchResult!
+  subjectSearchTerms: SubjectSearchTerms!
 }

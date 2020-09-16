@@ -7,3 +7,11 @@ export const syllabusQuery: QueryResolvers['subjects'] = async (
 ) => {
   return syllabusController.find(query, from, count);
 };
+
+export const subjectSearchTermsQuery: QueryResolvers['subjectSearchTerms'] = async (
+  _parent,
+  _params,
+  { syllabusController },
+) => {
+  return syllabusController.getTerms();
+};

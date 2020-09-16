@@ -1,16 +1,22 @@
 import { injectable, inject } from 'inversify';
 import { SubjectSearchQuery } from '../frameworks/server/graphql.generated';
 import { FindSyllabusPresenter } from '../presenters/find-syllabus-presenter';
+import { SubjectSearchTermsPresenter } from '../presenters/subject-search-terms-presenter';
 import { TYPES } from '../types';
 import { FindSyllabusUsecase } from '../usecases/find-syllabus';
+import { GetSubjectSearchTermsUsecase } from '../usecases/get-subject-search-terms';
 
 @injectable()
 export class SyllabusController {
   constructor(
     @inject(TYPES.FindSyllabusUsecase)
     private readonly findSyllabus: FindSyllabusUsecase,
+    @inject(TYPES.GetSubjectSearchTerms)
+    private readonly getSubjectSearchTerms: GetSubjectSearchTermsUsecase,
     @inject(FindSyllabusPresenter)
     private readonly findSyllabusPresenter: FindSyllabusPresenter,
+    @inject(SubjectSearchTermsPresenter)
+    private readonly subjectSearchTermsPresenter: SubjectSearchTermsPresenter,
   ) {}
 
   async find(
@@ -34,5 +40,11 @@ export class SyllabusController {
     });
 
     return this.findSyllabusPresenter.run(response);
+  }
+
+  async getTerms() {
+    const response = await this.getSubjectSearchTerms.run();
+
+    return this.subjectSearchTermsPresenter.run(response);
   }
 }
