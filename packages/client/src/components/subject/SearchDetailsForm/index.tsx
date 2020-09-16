@@ -1,3 +1,4 @@
+import { ButtonGroup } from '@blueprintjs/core';
 import React from 'react';
 import {
   SubjectSearchQuery,
@@ -76,35 +77,29 @@ export const SearchDetailsForm = (props: Props) => {
   );
 
   return (
-    <div className='grid grid-cols-4 gap-3 my-2 mx-1'>
-      <div>
+    <div className=''>
+      <ButtonGroup className='m-2'>
         <SemesterSelect
           items={semesters}
           selected={props.query.semester}
           onChange={handleSemesterChange}
         />
-      </div>
-      <div>
         <YearsSelect
           items={years}
           selected={props.query.year}
           onChange={handleYearChange}
         />
-      </div>
-      <div>
         <DateSelect
           items={[null, 0, 1, 2, 3, 4]}
           selected={props.query.date}
           onChange={handleDateChange}
         />
-      </div>
-      <div>
         <HoursSelect
           items={hours}
           selected={props.query.hour}
           onChange={handleHourChange}
         />
-      </div>
+      </ButtonGroup>
     </div>
   );
 };
