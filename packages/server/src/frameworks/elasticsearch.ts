@@ -25,6 +25,18 @@ export interface SearchResponse<TSource> {
   };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface TermAggsResponse<TKey extends Record<string, any>> {
+  aggregations: {
+    [K in keyof TKey]: {
+      buckets: Array<{
+        key: TKey[K];
+        doc_count: number;
+      }>;
+    };
+  };
+}
+
 export const createElasticsearchClient = async (config: Config) => {
   const client = new Client({
     node: config.elasticsearch.host,

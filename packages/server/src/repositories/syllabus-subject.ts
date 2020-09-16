@@ -23,10 +23,17 @@ export interface SyllabusSubjectRepositoryFindResponse {
   items: SyllabusSubjectEntity[];
 }
 
+export interface SyllabusSubjectRepositoryTermsResponse {
+  semesters: string[];
+  years: number[];
+  hours: number[];
+}
+
 export interface SyllabusSubjectRepository {
   init(): Promise<void> | void;
   get(id: number): Promise<SyllabusSubjectEntity | null>;
   find(
     request: SyllabusSubjectRepositoryFindRequest,
   ): Promise<SyllabusSubjectRepositoryFindResponse>;
+  getTerms(): Promise<SyllabusSubjectRepositoryTermsResponse>;
 }

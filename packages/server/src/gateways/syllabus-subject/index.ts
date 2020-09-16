@@ -2,7 +2,11 @@ import { Client } from '@elastic/elasticsearch';
 import { injectable, inject } from 'inversify';
 import { SyllabusSubjectEntity } from '../../entities/syllabus-subject';
 import { Config } from '../../frameworks/config';
-import { GetResponse, SearchResponse } from '../../frameworks/elasticsearch';
+import {
+  GetResponse,
+  SearchResponse,
+  TermAggsResponse,
+} from '../../frameworks/elasticsearch';
 import {
   SyllabusSubjectRepository,
   SyllabusSubjectRepositoryFindRequest,
@@ -139,6 +143,50 @@ export class SyllabusSubjectGateway implements SyllabusSubjectRepository {
       items: result.body.hits.hits.map((item) =>
         SyllabusSubjectEntity.from(item._source),
       ),
+    };
+  }
+
+  async getTerms() {
+    const result = await this.connection.search<
+      SearchResponse<unknown> &
+        TermAggsResponse<{
+          semesters: string;
+          years: number;
+          hours: number;
+        }>
+    >({
+      index: this.indexName,
+      body: {
+        size: 0,
+        aggs: {
+          semesters: {
+            terms: {
+              field: 'categories.semester',
+              size: 50,
+            },
+          },
+          years: {
+            terms: {
+              field: 'categories.year',
+              size: 50,
+            },
+          },
+          hours: {
+            terms: {
+              field: 'categories.schedule.days.hour',
+              size: 50,
+            },
+          },
+        },
+      },
+    });
+
+    const { aggregations } = result.body;
+
+    return {
+      semesters: aggregations.semesters.buckets.map(({ key }) => key),
+      years: aggregations.years.buckets.map(({ key }) => key),
+      hours: aggregations.hours.buckets.map(({ key }) => key),
     };
   }
 }
