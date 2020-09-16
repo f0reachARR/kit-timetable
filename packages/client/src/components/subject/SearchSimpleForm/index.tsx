@@ -5,27 +5,17 @@ import { SubjectSearchQuery } from '../../../api/graphql.generated';
 type Props = {
   isLoading: boolean;
   query: SubjectSearchQuery;
-  onQueryChange: (query: SubjectSearchQuery) => void;
+  onQueryChange: (queryPartial: SubjectSearchQuery) => void;
 };
 
 export const SearchSimpleForm = (props: Props) => {
-  const updateQuery = React.useCallback(
-    (merge: SubjectSearchQuery) => {
-      props.onQueryChange({
-        ...props.query,
-        ...merge,
-      });
-    },
-    [props.onQueryChange, props.query],
-  );
-
   const handleChangeTitleQuery = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      updateQuery({
+      props.onQueryChange({
         title: e.target.value,
       });
     },
-    [updateQuery],
+    [props.onQueryChange],
   );
 
   return (
