@@ -1,7 +1,6 @@
 import { NonIdealState, Spinner } from '@blueprintjs/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDebounce } from 'use-debounce';
 import {
   SubjectSearchQuery,
   useFindSubjectQuery,
@@ -12,18 +11,17 @@ import { SubjectListItem } from '../../components/subject/SubjectListItem';
 
 export const SubjectSearch = () => {
   const [query, setQuery] = React.useState<SubjectSearchQuery>({});
-  const [debouncedQuery] = useDebounce(query, 500);
   const { refetch, loading, data, error } = useFindSubjectQuery({
     notifyOnNetworkStatusChange: true,
   });
 
   React.useEffect(() => {
     refetch({
-      query: debouncedQuery,
+      query,
       from: 0,
       count: 20,
     });
-  }, [debouncedQuery, refetch]);
+  }, [query]);
 
   const handleQueryChange = React.useCallback(
     (partialQuery: SubjectSearchQuery) => {

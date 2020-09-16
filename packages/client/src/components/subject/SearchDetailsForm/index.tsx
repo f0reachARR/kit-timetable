@@ -9,6 +9,7 @@ import { createSearchSelect } from './SearchSelect';
 type Props = {
   query: SubjectSearchQuery;
   onQueryChange: (queryPartial: SubjectSearchQuery) => void;
+  forceUpdate?: () => void;
 };
 
 const SemesterSelect = createSearchSelect<string>((semester) =>
@@ -38,42 +39,70 @@ export const SearchDetailsForm = (props: Props) => {
     [data],
   );
 
+  const handleUpdate = React.useCallback(() => {
+    if (props.forceUpdate) props.forceUpdate();
+  }, [props.forceUpdate]);
+
+  const handleSemesterChange = React.useCallback(
+    (semester: string | null) => {
+      props.onQueryChange({ semester });
+      handleUpdate();
+    },
+    [props.onQueryChange],
+  );
+
+  const handleYearChange = React.useCallback(
+    (year: number | null) => {
+      props.onQueryChange({ year });
+      handleUpdate();
+    },
+    [props.onQueryChange],
+  );
+
+  const handleDateChange = React.useCallback(
+    (date: number | null) => {
+      props.onQueryChange({ date });
+      handleUpdate();
+    },
+    [props.onQueryChange],
+  );
+
+  const handleHourChange = React.useCallback(
+    (hour: number | null) => {
+      props.onQueryChange({ hour });
+      handleUpdate();
+    },
+    [props.onQueryChange],
+  );
+
   return (
     <div className='grid grid-cols-4 gap-3 my-2 mx-1'>
       <div>
         <SemesterSelect
           items={semesters}
           selected={props.query.semester}
-          onChange={(semester) => {
-            props.onQueryChange({ semester });
-          }}
+          onChange={handleSemesterChange}
         />
       </div>
       <div>
         <YearsSelect
           items={years}
           selected={props.query.year}
-          onChange={(year) => {
-            props.onQueryChange({ year });
-          }}
+          onChange={handleYearChange}
         />
       </div>
       <div>
         <DateSelect
           items={[null, 0, 1, 2, 3, 4]}
           selected={props.query.date}
-          onChange={(date) => {
-            props.onQueryChange({ date });
-          }}
+          onChange={handleDateChange}
         />
       </div>
       <div>
         <HoursSelect
           items={hours}
           selected={props.query.hour}
-          onChange={(hour) => {
-            props.onQueryChange({ hour });
-          }}
+          onChange={handleHourChange}
         />
       </div>
     </div>

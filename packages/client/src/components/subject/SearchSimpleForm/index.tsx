@@ -1,5 +1,6 @@
 import { InputGroup, Spinner } from '@blueprintjs/core';
 import React from 'react';
+import { useDebouncedCallback } from 'use-debounce';
 import { SubjectSearchQuery } from '../../../api/graphql.generated';
 
 type Props = {
@@ -9,11 +10,16 @@ type Props = {
 };
 
 export const SearchSimpleForm = (props: Props) => {
+  const [title, setTitle] = React.useState('');
+  const [debouncedChange] = useDebouncedCallback(() => {
+    props.onQueryChange({
+      title,
+    });
+  }, 500);
   const handleChangeTitleQuery = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      props.onQueryChange({
-        title: e.target.value,
-      });
+      setTitle(e.target.value);
+      debouncedChange();
     },
     [props.onQueryChange],
   );
