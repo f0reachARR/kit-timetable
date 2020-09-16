@@ -31,7 +31,7 @@ export class FindSyllabusInteractor implements FindSyllabusUsecase {
       throw new Error('query `hour` is out of range');
     }
 
-    if (typeof query.date === 'number' && (query.date > 5 || query.date < 1)) {
+    if (typeof query.date === 'number' && (query.date > 4 || query.date < 0)) {
       throw new Error('query `date` is out of range');
     }
 
