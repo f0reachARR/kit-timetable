@@ -1,4 +1,4 @@
-import { MenuItem, Button } from '@blueprintjs/core';
+import { MenuItem, Button, Intent } from '@blueprintjs/core';
 import { Select as SelectBase, ItemRenderer } from '@blueprintjs/select';
 import React from 'react';
 
@@ -49,7 +49,7 @@ export function createSearchSelect<T extends string | number>(
         filterable={false}
         disabled={props.disabled || props.items.length === 0}
         popoverProps={{ minimal: true }}
-        activeItem={props.selected}
+        activeItem={props.selected ?? null}
       >
         <Button
           rightIcon='caret-down'
@@ -57,6 +57,9 @@ export function createSearchSelect<T extends string | number>(
           text={transformedSelect ?? '指定なし'}
           disabled={props.disabled}
           loading={props.items.length === 0}
+          intent={
+            (props.selected ?? null) === null ? Intent.NONE : Intent.PRIMARY
+          }
         />
       </SelectBase>
     );
