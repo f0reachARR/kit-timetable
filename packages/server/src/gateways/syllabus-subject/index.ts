@@ -135,6 +135,11 @@ export class SyllabusSubjectGateway implements SyllabusSubjectRepository {
         query,
         from: request.from,
         size: request.count,
+        sort: [
+          {
+            id: { order: 'asc' },
+          },
+        ],
       },
     });
 
