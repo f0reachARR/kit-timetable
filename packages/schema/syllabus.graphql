@@ -113,5 +113,6 @@ type SubjectSearchTerms {
 
 extend type Query {
   subjects(query: SubjectSearchQuery, from: Int, count: Int): SubjectSearchResult!
+  subject(id: ID!): Subject!
   subjectSearchTerms: SubjectSearchTerms!
 }

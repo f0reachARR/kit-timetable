@@ -15,3 +15,11 @@ export const subjectSearchTermsQuery: QueryResolvers['subjectSearchTerms'] = asy
 ) => {
   return syllabusController.getTerms();
 };
+
+export const subjectQuery: QueryResolvers['subject'] = async (
+  _parent,
+  { id },
+  { syllabusController },
+) => {
+  return syllabusController.get(id);
+};
