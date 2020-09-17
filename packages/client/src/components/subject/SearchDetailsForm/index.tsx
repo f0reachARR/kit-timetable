@@ -1,8 +1,9 @@
-import { ButtonGroup } from '@blueprintjs/core';
+import { ButtonGroup, RadioGroup, Radio } from '@blueprintjs/core';
 import React from 'react';
 import {
   SubjectSearchQuery,
   useGetSubjectSearchTermsQuery,
+  SubjectScheduleSearchType,
 } from '../../../api/graphql.generated';
 import { DATE_LABELS } from '../../../constants';
 import { createSearchSelect } from './SearchSelect';
@@ -67,8 +68,22 @@ export const SearchDetailsForm = (props: Props) => {
     [props.onQueryChange],
   );
 
+  const handleTypeChange = React.useCallback(
+    (e: React.FormEvent<HTMLInputElement>) => {
+      if (
+        e.currentTarget.value === SubjectScheduleSearchType.Intensive ||
+        e.currentTarget.value === SubjectScheduleSearchType.Fixed
+      ) {
+        props.onQueryChange({ type: e.currentTarget.value });
+      } else {
+        props.onQueryChange({ type: null });
+      }
+    },
+    [props.onQueryChange],
+  );
+
   return (
-    <div className=''>
+    <div>
       {data && (
         <ButtonGroup className='m-2'>
           <SemesterSelect
@@ -93,6 +108,15 @@ export const SearchDetailsForm = (props: Props) => {
           />
         </ButtonGroup>
       )}
+      <RadioGroup
+        selectedValue={props.query.type ?? '_all'}
+        onChange={handleTypeChange}
+        inline
+      >
+        <Radio label='全て' value='_all' />
+        <Radio label='通常' value={SubjectScheduleSearchType.Fixed} />
+        <Radio label='集中' value={SubjectScheduleSearchType.Intensive} />
+      </RadioGroup>
     </div>
   );
 };

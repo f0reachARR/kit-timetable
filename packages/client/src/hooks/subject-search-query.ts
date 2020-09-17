@@ -15,6 +15,7 @@ const searchQueryType = t.partial({
   year: t.union([StringNumber, t.null]),
   hour: t.union([StringNumber, t.null]),
   date: t.union([StringNumber, t.null]),
+  type: t.union([t.literal('intensive'), t.literal('fixed'), t.null]),
 });
 export const useSubjectSearchQueryFromQuery = () => {
   const { search: rawQueryString } = useLocation();
