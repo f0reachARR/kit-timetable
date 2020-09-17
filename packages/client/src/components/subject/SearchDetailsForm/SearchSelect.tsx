@@ -31,16 +31,14 @@ export function createSearchSelect<T extends string | number>(
   };
 
   const Select = (props: Props<T>) => {
-    const [selected, setSelected] = React.useState<T | null>(null);
     const transformedSelect = React.useMemo(() => {
-      return transform ? transform(selected) : selected;
-    }, [selected]);
+      return transform ? transform(props.selected ?? null) : props.selected;
+    }, [props.selected]);
     const handleSelect = React.useCallback(
       (item: T | null) => {
-        setSelected(item);
         props.onChange(item);
       },
-      [setSelected],
+      [props.onChange],
     );
 
     return (

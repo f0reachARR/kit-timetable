@@ -10,7 +10,6 @@ import { createSearchSelect } from './SearchSelect';
 type Props = {
   query: SubjectSearchQuery;
   onQueryChange: (queryPartial: SubjectSearchQuery) => void;
-  forceUpdate?: () => void;
 };
 
 const SemesterSelect = createSearchSelect<string>((semester) =>
@@ -40,14 +39,9 @@ export const SearchDetailsForm = (props: Props) => {
     [data],
   );
 
-  const handleUpdate = React.useCallback(() => {
-    if (props.forceUpdate) props.forceUpdate();
-  }, [props.forceUpdate]);
-
   const handleSemesterChange = React.useCallback(
     (semester: string | null) => {
       props.onQueryChange({ semester });
-      handleUpdate();
     },
     [props.onQueryChange],
   );
@@ -55,7 +49,6 @@ export const SearchDetailsForm = (props: Props) => {
   const handleYearChange = React.useCallback(
     (year: number | null) => {
       props.onQueryChange({ year });
-      handleUpdate();
     },
     [props.onQueryChange],
   );
@@ -63,7 +56,6 @@ export const SearchDetailsForm = (props: Props) => {
   const handleDateChange = React.useCallback(
     (date: number | null) => {
       props.onQueryChange({ date });
-      handleUpdate();
     },
     [props.onQueryChange],
   );
@@ -71,35 +63,36 @@ export const SearchDetailsForm = (props: Props) => {
   const handleHourChange = React.useCallback(
     (hour: number | null) => {
       props.onQueryChange({ hour });
-      handleUpdate();
     },
     [props.onQueryChange],
   );
 
   return (
     <div className=''>
-      <ButtonGroup className='m-2'>
-        <SemesterSelect
-          items={semesters}
-          selected={props.query.semester}
-          onChange={handleSemesterChange}
-        />
-        <YearsSelect
-          items={years}
-          selected={props.query.year}
-          onChange={handleYearChange}
-        />
-        <DateSelect
-          items={[null, 0, 1, 2, 3, 4]}
-          selected={props.query.date}
-          onChange={handleDateChange}
-        />
-        <HoursSelect
-          items={hours}
-          selected={props.query.hour}
-          onChange={handleHourChange}
-        />
-      </ButtonGroup>
+      {data && (
+        <ButtonGroup className='m-2'>
+          <SemesterSelect
+            items={semesters}
+            selected={props.query.semester}
+            onChange={handleSemesterChange}
+          />
+          <YearsSelect
+            items={years}
+            selected={props.query.year}
+            onChange={handleYearChange}
+          />
+          <DateSelect
+            items={[null, 0, 1, 2, 3, 4]}
+            selected={props.query.date}
+            onChange={handleDateChange}
+          />
+          <HoursSelect
+            items={hours}
+            selected={props.query.hour}
+            onChange={handleHourChange}
+          />
+        </ButtonGroup>
+      )}
     </div>
   );
 };
