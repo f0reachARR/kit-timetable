@@ -24,13 +24,17 @@ export const SearchSimpleForm = (props: Props) => {
     [props.onQueryChange],
   );
 
+  React.useEffect(() => {
+    setTitle(props.query.title ?? '');
+  }, [props.query.title]);
+
   return (
     <InputGroup
       large
       fill
       placeholder='Title...'
       leftIcon='search'
-      value={props.query.title || ''}
+      value={title}
       onChange={handleChangeTitleQuery}
       rightElement={
         props.isLoading ? <Spinner size={Spinner.SIZE_SMALL} /> : undefined
