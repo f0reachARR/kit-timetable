@@ -1,7 +1,7 @@
-import { NonIdealState, Spinner } from '@blueprintjs/core';
+import { NonIdealState, Spinner, Drawer } from '@blueprintjs/core';
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDebouncedCallback } from 'use-debounce';
 import {
   SubjectSearchQuery,
@@ -11,6 +11,7 @@ import { SearchDetailsForm } from '../../components/subject/SearchDetailsForm';
 import { SearchSimpleForm } from '../../components/subject/SearchSimpleForm';
 import { SubjectListItem } from '../../components/subject/SubjectListItem';
 import { useSubjectSearchQueryFromQuery } from '../../hooks/subject-search-query';
+import { SubjectSearchDetailsDrawer } from './details';
 
 export const SubjectSearch = () => {
   const [query, queryError, createQuery] = useSubjectSearchQueryFromQuery();
@@ -26,7 +27,7 @@ export const SubjectSearch = () => {
       count: 50,
     },
   });
-
+  const [openId, setOpenId] = React.useState<string | null>(null);
   const [scrollRef, inView] = useInView();
 
   React.useEffect(() => {
@@ -82,6 +83,8 @@ export const SubjectSearch = () => {
     [query],
   );
 
+  const handleDrawerClose = React.useCallback(() => setOpenId(null), []);
+
   const renderSearchResult = React.useCallback(() => {
     if (loading && !data) {
       return (
@@ -108,9 +111,16 @@ export const SubjectSearch = () => {
         <ul className='list-none'>
           {data.subjects.items.map((item) => (
             <li key={item.id} className='border-gray-500 border-b'>
-              <Link to={`/subject/${item.id}`} className='text-blue-500'>
+              <a
+                className='text-blue-500'
+                href='#'
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpenId(item.id);
+                }}
+              >
                 <SubjectListItem item={item} />
-              </Link>
+              </a>
             </li>
           ))}
           {hasMore && <li ref={scrollRef} />}
@@ -135,6 +145,15 @@ export const SubjectSearch = () => {
           />
           <SearchDetailsForm query={query} onQueryChange={handleQueryChange} />
           {renderSearchResult()}
+          <Drawer
+            isOpen={openId !== null}
+            onClose={handleDrawerClose}
+            size='60%'
+            className='md:min-w-0 min-w-full'
+            title='詳細'
+          >
+            {openId && <SubjectSearchDetailsDrawer subjectId={openId} />}
+          </Drawer>
         </>
       ) : (
         <NonIdealState icon='warning-sign' title='Error occured' />
