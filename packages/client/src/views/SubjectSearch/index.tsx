@@ -92,7 +92,7 @@ export const SubjectSearch = () => {
         <div>{data.subjects.total}件</div>
         <ul className='list-none'>
           {data.subjects.items.map((item) => (
-            <li key={item.id} className='border-gray-500 border-b py-2 md:px-1'>
+            <li key={item.id} className='border-gray-500 border-b'>
               <Link to={`/subject/${item.id}`} className='text-blue-500'>
                 <SubjectListItem item={item} />
               </Link>

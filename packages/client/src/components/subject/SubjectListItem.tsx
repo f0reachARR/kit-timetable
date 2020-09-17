@@ -30,7 +30,7 @@ const createDateLabel = (item: SubjectSimpleFragment) => {
 
 export const SubjectListItem = ({ item }: { item: SubjectSimpleFragment }) => {
   return (
-    <div className='flex justify-between '>
+    <div className='flex justify-between py-2 md:px-1'>
       <div>
         <h2 className='inline text-xl text-semibold truncate max-w-full'>
           {item.title}
