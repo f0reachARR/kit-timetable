@@ -82,6 +82,8 @@ type Subject {
   code: String
   class: String
   attachments: [SubjectAttachment!]!
+  goal: SubjectGoal
+  plans: [SubjectPlan!]!
 }
 
 type SubjectSearchResult {
