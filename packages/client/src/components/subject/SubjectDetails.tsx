@@ -32,36 +32,48 @@ export const SubjectDetails = ({ subject }: Props) => {
       <span className='text-base text-gray-800'>
         {createSubjectDateLabel(subject)}
       </span>
-      <CollapseCallout title='概要' initialOpen>
-        <span className='text-base text-gray-800 whitespace-pre-wrap'>
-          {subject.outline}
-        </span>
-      </CollapseCallout>
-      <CollapseCallout title='成績評価' initialOpen>
-        <span className='text-base text-gray-800 whitespace-pre-wrap'>
-          {subject.gradingPolicy}
-        </span>
-      </CollapseCallout>
-      <CollapseCallout title='目標'>
-        <span className='text-base text-gray-800 whitespace-pre-wrap'>
-          {subject.purpose}
-        </span>
-      </CollapseCallout>
-      <CollapseCallout title='留意すること'>
-        <span className='text-base text-gray-800 whitespace-pre-wrap'>
-          {subject.point}
-        </span>
-      </CollapseCallout>
-      <CollapseCallout title='注意事項' initialOpen>
-        <span className='text-base text-gray-800 whitespace-pre-wrap'>
-          {subject.remark}
-        </span>
-      </CollapseCallout>
-      <CollapseCallout title='教科書' initialOpen>
-        <span className='text-base text-gray-800 whitespace-pre-wrap'>
-          {subject.textbook}
-        </span>
-      </CollapseCallout>
+      {subject.outline && (
+        <CollapseCallout title='概要' initialOpen>
+          <span className='text-base text-gray-800 whitespace-pre-wrap'>
+            {subject.outline}
+          </span>
+        </CollapseCallout>
+      )}
+      {subject.gradingPolicy && (
+        <CollapseCallout title='成績評価' initialOpen>
+          <span className='text-base text-gray-800 whitespace-pre-wrap'>
+            {subject.gradingPolicy}
+          </span>
+        </CollapseCallout>
+      )}
+      {subject.purpose && (
+        <CollapseCallout title='目標'>
+          <span className='text-base text-gray-800 whitespace-pre-wrap'>
+            {subject.purpose}
+          </span>
+        </CollapseCallout>
+      )}
+      {subject.point && (
+        <CollapseCallout title='留意すること'>
+          <span className='text-base text-gray-800 whitespace-pre-wrap'>
+            {subject.point}
+          </span>
+        </CollapseCallout>
+      )}
+      {subject.remark && (
+        <CollapseCallout title='注意事項' initialOpen>
+          <span className='text-base text-gray-800 whitespace-pre-wrap'>
+            {subject.remark}
+          </span>
+        </CollapseCallout>
+      )}
+      {subject.textbook && (
+        <CollapseCallout title='教科書' initialOpen>
+          <span className='text-base text-gray-800 whitespace-pre-wrap'>
+            {subject.textbook}
+          </span>
+        </CollapseCallout>
+      )}
       {subject.plans.length > 0 && (
         <CollapseCallout title='授業計画'>
           <SubjectPlanTable items={subject.plans} />
