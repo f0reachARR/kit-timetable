@@ -1,13 +1,23 @@
 {
-  "name": "kit-timetable-schema",
+  "name": "@f0reacharr/kit-timetable-schema",
   "version": "1.0.0",
   "main": "./dist/schema.graphql",
-  "repository": "https://github.com/f0reachARR/kit-timetable",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/f0reachARR/kit-timetable.git",
+    "directory": "packages/schema"
+  },
   "author": "f0reachARR <f0reach@f0reach.me>",
   "license": "MIT",
-  "private": true,
   "scripts": {
     "build": "gql-gen"
+  },
+  "files": [
+    "./dist",
+    "package.json"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.17.8",

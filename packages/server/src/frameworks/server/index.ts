@@ -48,17 +48,22 @@ export class ServerImpl implements Server {
   }
 
   private async prepareSchema() {
-    const schema = await fs.readFile(require.resolve('kit-timetable-schema'), {
-      encoding: 'utf8',
-    });
+    const schema = await fs.readFile(
+      require.resolve('@f0reacharr/kit-timetable-schema'),
+      {
+        encoding: 'utf8',
+      },
+    );
 
     return gql(schema);
   }
 
   private getStaticPath() {
     try {
-      const indexPath = require.resolve('kit-timetable-client');
-      const dirPath = dirname(require.resolve('kit-timetable-client'));
+      const indexPath = require.resolve('@f0reacharr/kit-timetable-client');
+      const dirPath = dirname(
+        require.resolve('@f0reacharr/kit-timetable-client'),
+      );
 
       return [indexPath, dirPath] as const;
     } catch (e) {

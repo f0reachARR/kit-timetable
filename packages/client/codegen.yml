@@ -1,7 +1,7 @@
 overwrite: true
 schema:
-  - "../../node_modules/kit-timetable-schema/dist/schema.graphql"
-  - "./node_modules/kit-timetable-schema/dist/schema.graphql"
+  - "../../node_modules/@f0reacharr/kit-timetable-schema/dist/schema.graphql"
+  - "./node_modules/@f0reacharr/kit-timetable-schema/dist/schema.graphql"
 documents:
   - "./graphql/**/*.graphql"
   - "./graphql/*.graphql"

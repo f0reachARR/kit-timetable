@@ -1,8 +1,12 @@
 {
-  "name": "kit-timetable-server",
+  "name": "@f0reacharr/kit-timetable-server",
   "version": "1.0.0",
   "main": "./dist/app.js",
-  "repository": "https://github.com/f0reachARR/kit-timetable",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/f0reachARR/kit-timetable.git",
+    "directory": "packages/server"
+  },
   "author": "f0reachARR <f0reach@f0reach.me>",
   "license": "MIT",
   "scripts": {
@@ -11,6 +15,13 @@
     "build": "run-s build:*",
     "start": "node ./dist/app.js"
   },
+  "files": [
+    "./dist",
+    "package.json"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "dependencies": {
     "@elastic/elasticsearch": "^7.9.0",
     "apollo-server-express": "^2.17.0",
@@ -18,8 +29,8 @@
     "express": "^4.17.1",
     "graphql": "^15.3.0",
     "inversify": "^5.0.1",
-    "kit-timetable-client": "^1.0.0",
-    "kit-timetable-schema": "^1.0.0",
+    "@f0reacharr/kit-timetable-client": "^1.0.0",
+    "@f0reacharr/kit-timetable-schema": "^1.0.0",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
