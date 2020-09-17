@@ -1,15 +1,16 @@
 {
   "name": "kit-timetable-client",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.html",
   "repository": "https://github.com/f0reachARR/kit-timetable",
   "author": "f0reachARR <f0reach@f0reach.me>",
   "license": "MIT",
   "private": true,
   "scripts": {
     "start": "parcel serve ./src/index.html",
+    "build:codegen": "gql-gen",
     "build:parcel": "parcel build ./src/index.html",
-    "build:codegen": "gql-gen"
+    "build": "run-s build:*"
   },
   "engines": {
     "browsers": "> 0.25%"
@@ -31,6 +32,7 @@
     "fp-ts": "^2.8.2",
     "graphql": "^15.3.0",
     "io-ts": "^2.2.10",
+    "npm-run-all": "^4.1.5",
     "parcel": "^2.0.0-beta.1",
     "postcss-import": "^12.0.1",
     "react": "^16.13.1",

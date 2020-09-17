@@ -3,6 +3,7 @@ import express from 'express';
 import { promises as fs } from 'fs';
 import gql from 'graphql-tag';
 import { injectable, inject, interfaces } from 'inversify';
+import { dirname } from 'path';
 import { TYPES } from '../../types';
 import { Config } from '../config';
 import { GraphQLContext } from './context';
@@ -36,6 +37,14 @@ export class ServerImpl implements Server {
     const server = app.listen(this.config.port);
 
     apollo.installSubscriptionHandlers(server);
+
+    const [indexPath, staticPath] = this.getStaticPath();
+    if (staticPath !== null && indexPath !== null) {
+      app.use(express.static(staticPath));
+      app.use('*', (_req, res) =>
+        res.header('Content-Type', 'text/html').sendFile(indexPath),
+      );
+    }
   }
 
   private async prepareSchema() {
@@ -44,5 +53,17 @@ export class ServerImpl implements Server {
     });
 
     return gql(schema);
+  }
+
+  private getStaticPath() {
+    try {
+      const indexPath = require.resolve('kit-timetable-client');
+      const dirPath = dirname(require.resolve('kit-timetable-client'));
+
+      return [indexPath, dirPath] as const;
+    } catch (e) {
+      console.error(e);
+      return [null, null] as const;
+    }
   }
 }
