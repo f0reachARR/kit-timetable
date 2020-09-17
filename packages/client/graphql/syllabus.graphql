@@ -20,6 +20,57 @@ fragment SubjectSimple on Subject {
   }
 }
 
+fragment SubjectDetails on Subject {
+  id
+  timetableId
+  courseId
+  title
+  flags
+  credits
+  class
+  code
+
+  outline
+  purpose
+  requirement
+  point
+  textbook
+  gradingPolicy
+  remark
+  researchPlan
+  type
+  plans {
+    topic
+    content
+  }
+  goal {
+    description
+    evaluations {
+      label
+      description
+    }
+  }
+  instructors {
+    name
+  }
+  categories {
+    faculty
+    field
+    program
+    category
+    year
+    semester
+    available
+    schedule {
+      type
+      days {
+        date
+        hour
+      }
+    }
+  }
+}
+
 query findSubject($query: SubjectSearchQuery, $from: Int, $count: Int) {
   subjects(query: $query, from: $from, count: $count) {
     total
@@ -29,6 +80,11 @@ query findSubject($query: SubjectSearchQuery, $from: Int, $count: Int) {
   }
 }
 
+query getSubject($id: ID!) {
+  subject(id: $id) {
+    ...SubjectDetails
+  }
+}
 query getSubjectSearchTerms {
   subjectSearchTerms {
     semesters
