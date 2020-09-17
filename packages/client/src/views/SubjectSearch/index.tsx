@@ -1,7 +1,7 @@
 import { NonIdealState, Spinner } from '@blueprintjs/core';
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {
   SubjectSearchQuery,
   useFindSubjectQuery,
@@ -9,9 +9,11 @@ import {
 import { SearchDetailsForm } from '../../components/subject/SearchDetailsForm';
 import { SearchSimpleForm } from '../../components/subject/SearchSimpleForm';
 import { SubjectListItem } from '../../components/subject/SubjectListItem';
+import { useSubjectSearchQueryFromQuery } from '../../hooks/subject-search-query';
 
 export const SubjectSearch = () => {
-  const [query, setQuery] = React.useState<SubjectSearchQuery>({});
+  const [query, queryError, createQuery] = useSubjectSearchQueryFromQuery();
+  const history = useHistory();
   const { refetch, loading, data, error, fetchMore } = useFindSubjectQuery({
     notifyOnNetworkStatusChange: true,
   });
@@ -19,15 +21,17 @@ export const SubjectSearch = () => {
   const [scrollRef, inView] = useInView();
 
   React.useEffect(() => {
-    refetch({
-      query,
-      from: 0,
-      count: 50,
-    });
-  }, [query]);
+    if (query) {
+      refetch({
+        query,
+        from: 0,
+        count: 50,
+      });
+    }
+  }, [query, queryError]);
 
   React.useEffect(() => {
-    if (inView && !loading && data) {
+    if (inView && !loading && data && query) {
       const items = data.subjects.items;
       fetchMore({
         variables: {
@@ -50,16 +54,17 @@ export const SubjectSearch = () => {
         },
       });
     }
-  }, [inView, query, data, loading]);
+  }, [inView, data, loading]);
 
   const handleQueryChange = React.useCallback(
     (partialQuery: SubjectSearchQuery) => {
-      setQuery((query) => ({
+      const newQuery = {
         ...query,
         ...partialQuery,
-      }));
+      };
+      history.replace(`/search?${createQuery(newQuery)}`);
     },
-    [setQuery],
+    [query],
   );
 
   const renderSearchResult = React.useCallback(() => {
@@ -106,13 +111,19 @@ export const SubjectSearch = () => {
 
   return (
     <div className='container max-w-screen-md mx-auto my-3 px-3'>
-      <SearchSimpleForm
-        query={query}
-        isLoading={loading}
-        onQueryChange={handleQueryChange}
-      />
-      <SearchDetailsForm query={query} onQueryChange={handleQueryChange} />
-      {renderSearchResult()}
+      {query ? (
+        <>
+          <SearchSimpleForm
+            query={query}
+            isLoading={loading}
+            onQueryChange={handleQueryChange}
+          />
+          <SearchDetailsForm query={query} onQueryChange={handleQueryChange} />
+          {renderSearchResult()}
+        </>
+      ) : (
+        <NonIdealState icon='warning-sign' title='Error occured' />
+      )}
     </div>
   );
 };
