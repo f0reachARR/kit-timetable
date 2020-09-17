@@ -21,7 +21,7 @@ const client = new ApolloClient({
   queryDeduplication: false,
   defaultOptions: {
     query: {
-      fetchPolicy: 'network-only',
+      fetchPolicy: 'cache-first',
       errorPolicy: 'all',
     },
   },

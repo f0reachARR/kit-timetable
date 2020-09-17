@@ -2,9 +2,10 @@ import { NonIdealState, Spinner } from '@blueprintjs/core';
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Link, useHistory } from 'react-router-dom';
+import { useDebouncedCallback } from 'use-debounce';
 import {
   SubjectSearchQuery,
-  useFindSubjectQuery,
+  useFindSubjectLazyQuery,
 } from '../../api/graphql.generated';
 import { SearchDetailsForm } from '../../components/subject/SearchDetailsForm';
 import { SearchSimpleForm } from '../../components/subject/SearchSimpleForm';
@@ -14,24 +15,34 @@ import { useSubjectSearchQueryFromQuery } from '../../hooks/subject-search-query
 export const SubjectSearch = () => {
   const [query, queryError, createQuery] = useSubjectSearchQueryFromQuery();
   const history = useHistory();
-  const { refetch, loading, data, error, fetchMore } = useFindSubjectQuery({
+  const [
+    dispatch,
+    { loading, data, error, fetchMore },
+  ] = useFindSubjectLazyQuery({
     notifyOnNetworkStatusChange: true,
+    variables: {
+      query,
+      from: 0,
+      count: 50,
+    },
   });
 
   const [scrollRef, inView] = useInView();
 
   React.useEffect(() => {
     if (query) {
-      refetch({
-        query,
-        from: 0,
-        count: 50,
+      dispatch({
+        variables: {
+          query,
+          from: 0,
+          count: 50,
+        },
       });
     }
   }, [query, queryError]);
 
-  React.useEffect(() => {
-    if (inView && !loading && data && query) {
+  const [fetchMoreDebounced] = useDebouncedCallback(() => {
+    if (inView && !loading && data && query && fetchMore) {
       const items = data.subjects.items;
       fetchMore({
         variables: {
@@ -54,7 +65,11 @@ export const SubjectSearch = () => {
         },
       });
     }
-  }, [inView, data, loading]);
+  }, 100);
+
+  React.useEffect(() => {
+    fetchMoreDebounced();
+  }, [inView, data, loading, fetchMore]);
 
   const handleQueryChange = React.useCallback(
     (partialQuery: SubjectSearchQuery) => {
