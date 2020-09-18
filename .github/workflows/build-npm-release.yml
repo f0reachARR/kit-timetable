@@ -57,6 +57,11 @@ jobs:
     - name: Docker login
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
+    - name: Enable docker experimental mode
+      run: |
+        echo '{"experimental": true}' | sudo tee /etc/docker/daemon.json
+        sudo systemctl restart docker.service
+
     - name: Build and push image
       run: |
         IMAGE_ID=`echo "docker.pkg.github.com/${{ github.repository }}" | tr '[A-Z]' '[a-z]'`
@@ -66,3 +71,4 @@ jobs:
         docker push $IMAGE_ID/kit-timetable-server:$VERSION
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        DOCKER_CLI_EXPERIMENTAL: enabled
