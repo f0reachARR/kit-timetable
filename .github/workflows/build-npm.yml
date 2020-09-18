@@ -45,6 +45,10 @@ jobs:
         NODE_ENV: production
 
     - name: Publish with canary version
-      run: yarn lerna publish --canary --yes
+      run: |
+        CURRENT_VERSION=$(jq -r ".version" lerna.json)
+        HASH_HEAD=${GITHUB_SHA:0:8}
+        yarn lerna version --no-push --yes --preid "canary-$HASH_HEAD" prepatch
+        yarn lerna publish from-package --yes
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
