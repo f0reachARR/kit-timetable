@@ -67,7 +67,7 @@ jobs:
         IMAGE_ID=`echo "docker.pkg.github.com/${{ github.repository }}" | tr '[A-Z]' '[a-z]'`
         VERSION=$(jq -r ".version" lerna.json)
 
-        docker build ./docker --squash --build-arg VERSION=$VERSION --tag $IMAGE_ID/kit-timetable-server:$VERSION
+        docker build ./docker --squash --build-arg VERSION=$VERSION --build-arg NODE_AUTH_TOKEN=$NODE_AUTH_TOKEN --tag $IMAGE_ID/kit-timetable-server:$VERSION
         docker push $IMAGE_ID/kit-timetable-server:$VERSION
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
