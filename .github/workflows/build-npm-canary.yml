@@ -1,0 +1,50 @@
+name: Build canary releases and publish to the registry
+
+on:
+  push:
+    branches: "develop"
+
+jobs:
+  publish-canary:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+        registry-url: 'https://npm.pkg.github.com/'
+    - uses: actions/cache@v1
+      with:
+        path: ~/.cache/yarn
+        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Setup git
+      run: |
+        git remote set-url --push origin https://${{ github.actor }}:$GITHUB_TOKEN@github.com/${{ github.repository }}
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Install packages
+      run: yarn install --frozen-lockfile
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build (production)
+      run: yarn lerna run --stream build
+      env:
+        NODE_ENV: production
+
+    - name: Publish with canary version
+      run: |
+        CURRENT_VERSION=$(jq -r ".version" lerna.json)
+        HASH_HEAD=${GITHUB_SHA:0:8}
+        yarn lerna version --no-push --yes --preid "canary-$HASH_HEAD" prepatch
+        yarn lerna publish from-package --yes
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

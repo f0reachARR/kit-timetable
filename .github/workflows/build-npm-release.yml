@@ -1,11 +1,11 @@
-name: Build and publish to the registry
+name: Build release build and publish to the registry
 
 on:
   push:
-    branches: "develop"
+    branches: "master"
 
 jobs:
-  publish-canary:
+  publish-release:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -30,12 +30,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Install packages of root directory
+    - name: Install packages
       run: yarn install --frozen-lockfile
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Install dependencies packages
-      run: yarn lerna bootstrap
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -44,11 +40,8 @@ jobs:
       env:
         NODE_ENV: production
 
-    - name: Publish with canary version
+    - name: Publish release version
       run: |
-        CURRENT_VERSION=$(jq -r ".version" lerna.json)
-        HASH_HEAD=${GITHUB_SHA:0:8}
-        yarn lerna version --no-push --yes --preid "canary-$HASH_HEAD" prepatch
-        yarn lerna publish from-package --yes
+        yarn lerna publish from-git --yes
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
