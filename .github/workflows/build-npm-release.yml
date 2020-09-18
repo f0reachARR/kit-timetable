@@ -49,7 +49,7 @@ jobs:
   push-docker:
     runs-on: ubuntu-latest
     needs:
-      publish-release:
+      - publish-release
     steps:
     - uses: actions/checkout@v2
       with:
