@@ -2,6 +2,9 @@
 const { colors, screens, fontFamily } = require('tailwindcss/defaultTheme');
 
 module.exports = {
+  purge: {
+    content: ['./src/**/*.tsx'],
+  },
   theme: {
     screens: {
       sm: screens.sm,
