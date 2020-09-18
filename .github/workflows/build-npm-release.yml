@@ -66,3 +66,4 @@ jobs:
         docker push $IMAGE_ID/kit-timetable-server:$VERSION
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        DOCKER_CLI_EXPERIMENTAL: enabled
