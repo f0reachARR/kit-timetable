@@ -16,7 +16,7 @@
     "build": "run-s build:*"
   },
   "files": [
-    "./dist",
+    "dist",
     "package.json"
   ],
   "publishConfig": {

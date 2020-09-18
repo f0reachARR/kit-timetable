@@ -13,7 +13,7 @@
     "build": "gql-gen"
   },
   "files": [
-    "./dist",
+    "dist",
     "package.json"
   ],
   "publishConfig": {

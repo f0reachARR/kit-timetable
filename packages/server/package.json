@@ -16,7 +16,7 @@
     "start": "node ./dist/app.js"
   },
   "files": [
-    "./dist",
+    "dist",
     "package.json"
   ],
   "publishConfig": {
