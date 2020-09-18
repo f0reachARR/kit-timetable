@@ -45,3 +45,24 @@ jobs:
         yarn lerna publish from-git --yes
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  push-docker:
+    runs-on: ubuntu-latest
+    needs:
+      publish-release:
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Docker login
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
+    - name: Build and push image
+      run: |
+        IMAGE_ID=`echo "docker.pkg.github.com/${{ github.repository }}" | tr '[A-Z]' '[a-z]'`
+        VERSION=$(jq -r ".version" lerna.json)
+
+        docker build ./docker --squash --build-arg VERSION=$VERSION --tag $IMAGE_ID/kit-timetable-server:$VERSION
+        docker push $IMAGE_ID/kit-timetable-server:$VERSION
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

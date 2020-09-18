@@ -2,6 +2,9 @@
   "name": "@f0reacharr/kit-timetable-server",
   "version": "1.0.0",
   "main": "./dist/app.js",
+  "bin": {
+    "kit-timetable-server": "./dist/app.js"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/f0reachARR/kit-timetable.git",
