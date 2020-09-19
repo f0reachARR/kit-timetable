@@ -11,7 +11,7 @@
       "runtimeArgs": [
         "exec",
         "--scope",
-        "kit-timetable-server",
+        "@f0reacharr/kit-timetable-server",
         "--",
         "node"
       ],
