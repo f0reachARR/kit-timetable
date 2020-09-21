@@ -1,4 +1,4 @@
-import { SyllabusSubjectEntity } from '../entities/syllabus-subject';
+import { SyllabusSubjectEntity } from '../../entities/syllabus-subject';
 
 export interface FindSyllabusQuery {
   date?: number;

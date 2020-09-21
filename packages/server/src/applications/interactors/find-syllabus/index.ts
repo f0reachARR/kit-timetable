@@ -1,9 +1,9 @@
 import { injectable, inject } from 'inversify';
+import { TYPES } from '../../../types';
 import {
   SyllabusSubjectRepository,
   SyllabusSubjectRepositoryFindRequest,
 } from '../../repositories/syllabus-subject';
-import { TYPES } from '../../types';
 import {
   FindSyllabusUsecase,
   FindSyllabusRequest,

@@ -2,11 +2,11 @@ import { injectable } from 'inversify';
 import {
   SyllabusSubjectEntity,
   SubjectSchedule,
-} from '../entities/syllabus-subject';
+} from '../../entities/syllabus-subject';
 import {
   SubjectFlags,
   SubjectScheduleType,
-} from '../frameworks/server/graphql.generated';
+} from '../../frameworks/server/graphql.generated';
 
 @injectable()
 export class SyllabusSubjectPresenter {

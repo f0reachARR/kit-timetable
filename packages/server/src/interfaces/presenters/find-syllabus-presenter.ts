@@ -1,5 +1,5 @@
 import { injectable, inject } from 'inversify';
-import { FindSyllabusResponse } from '../usecases/find-syllabus';
+import { FindSyllabusResponse } from '../../applications/usecases/find-syllabus';
 import { SyllabusSubjectPresenter } from './syllabus-subject-presenter';
 
 @injectable()

@@ -1,6 +1,6 @@
 import { ContainerModule } from 'inversify';
-import { SyllabusSubjectGateway } from '../../gateways/syllabus-subject';
-import { SyllabusSubjectRepository } from '../../repositories/syllabus-subject';
+import { SyllabusSubjectRepository } from '../../applications/repositories/syllabus-subject';
+import { SyllabusSubjectGateway } from '../../interfaces/gateways/syllabus-subject';
 import { TYPES } from '../../types';
 
 export const gatewayContainer = new ContainerModule((bind) => {

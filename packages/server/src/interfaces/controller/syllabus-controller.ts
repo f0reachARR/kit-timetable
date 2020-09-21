@@ -1,12 +1,12 @@
 import { injectable, inject } from 'inversify';
-import { SubjectSearchQuery } from '../frameworks/server/graphql.generated';
+import { FindSyllabusUsecase } from '../../applications/usecases/find-syllabus';
+import { GetSubjectUsecase } from '../../applications/usecases/get-subject';
+import { GetSubjectSearchTermsUsecase } from '../../applications/usecases/get-subject-search-terms';
+import { SubjectSearchQuery } from '../../frameworks/server/graphql.generated';
+import { TYPES } from '../../types';
 import { FindSyllabusPresenter } from '../presenters/find-syllabus-presenter';
 import { SubjectSearchTermsPresenter } from '../presenters/subject-search-terms-presenter';
 import { SyllabusSubjectPresenter } from '../presenters/syllabus-subject-presenter';
-import { TYPES } from '../types';
-import { FindSyllabusUsecase } from '../usecases/find-syllabus';
-import { GetSubjectUsecase } from '../usecases/get-subject';
-import { GetSubjectSearchTermsUsecase } from '../usecases/get-subject-search-terms';
 
 @injectable()
 export class SyllabusController {

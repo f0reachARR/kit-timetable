@@ -1,5 +1,5 @@
 import { injectable, inject } from 'inversify';
-import { SyllabusController } from '../../controller/syllabus-controller';
+import { SyllabusController } from '../../interfaces/controller/syllabus-controller';
 
 export interface GraphQLContext {
   syllabusController: SyllabusController;

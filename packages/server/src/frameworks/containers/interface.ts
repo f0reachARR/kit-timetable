@@ -1,8 +1,8 @@
 import { ContainerModule } from 'inversify';
-import { SyllabusController } from '../../controller/syllabus-controller';
-import { FindSyllabusPresenter } from '../../presenters/find-syllabus-presenter';
-import { SubjectSearchTermsPresenter } from '../../presenters/subject-search-terms-presenter';
-import { SyllabusSubjectPresenter } from '../../presenters/syllabus-subject-presenter';
+import { SyllabusController } from '../../interfaces/controller/syllabus-controller';
+import { FindSyllabusPresenter } from '../../interfaces/presenters/find-syllabus-presenter';
+import { SubjectSearchTermsPresenter } from '../../interfaces/presenters/subject-search-terms-presenter';
+import { SyllabusSubjectPresenter } from '../../interfaces/presenters/syllabus-subject-presenter';
 
 export const interfaceContainer = new ContainerModule((bind) => {
   bind(SyllabusController).toSelf().inSingletonScope();

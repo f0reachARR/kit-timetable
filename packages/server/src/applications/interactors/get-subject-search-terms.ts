@@ -1,6 +1,6 @@
 import { injectable, inject } from 'inversify';
+import { TYPES } from '../../types';
 import { SyllabusSubjectRepository } from '../repositories/syllabus-subject';
-import { TYPES } from '../types';
 import { GetSubjectSearchTermsUsecase } from '../usecases/get-subject-search-terms';
 
 @injectable()

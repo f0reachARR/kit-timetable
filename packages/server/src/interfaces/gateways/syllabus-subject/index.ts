@@ -1,18 +1,18 @@
 import { Client } from '@elastic/elasticsearch';
 import { injectable, inject } from 'inversify';
-import { SyllabusSubjectEntity } from '../../entities/syllabus-subject';
-import { Config } from '../../frameworks/config';
-import {
-  GetResponse,
-  SearchResponse,
-  TermAggsResponse,
-} from '../../frameworks/elasticsearch';
 import {
   SyllabusSubjectRepository,
   SyllabusSubjectRepositoryFindRequest,
   SyllabusSubjectRepositoryQuery,
-} from '../../repositories/syllabus-subject';
-import { TYPES } from '../../types';
+} from '../../../applications/repositories/syllabus-subject';
+import { SyllabusSubjectEntity } from '../../../entities/syllabus-subject';
+import { Config } from '../../../frameworks/config';
+import {
+  GetResponse,
+  SearchResponse,
+  TermAggsResponse,
+} from '../../../frameworks/elasticsearch';
+import { TYPES } from '../../../types';
 
 @injectable()
 export class SyllabusSubjectGateway implements SyllabusSubjectRepository {

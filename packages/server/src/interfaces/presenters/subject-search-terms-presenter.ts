@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { GetSubjectSearchTermsResponse } from '../usecases/get-subject-search-terms';
+import { GetSubjectSearchTermsResponse } from '../../applications/usecases/get-subject-search-terms';
 
 @injectable()
 export class SubjectSearchTermsPresenter {
