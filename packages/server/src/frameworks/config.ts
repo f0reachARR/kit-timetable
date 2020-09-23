@@ -1,5 +1,6 @@
 import { config as dotenv } from 'dotenv';
 import { injectable } from 'inversify';
+import path from 'path';
 
 interface ElasticsearchConfig {
   host: string;
@@ -17,7 +18,7 @@ export class ConfigImpl implements Config {
   readonly elasticsearch: ElasticsearchConfig;
   readonly port: number;
   constructor() {
-    dotenv();
+    dotenv({ path: path.resolve('../../.env') });
 
     this.elasticsearch = {
       host: process.env.ES_HOST ?? 'http://127.0.0.1:9200',
