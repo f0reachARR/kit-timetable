@@ -13,6 +13,7 @@ import {
 } from './frameworks/containers';
 import { createElasticsearchClient } from './frameworks/elasticsearch';
 import { Server } from './frameworks/server';
+import { connect as connectOrm } from './frameworks/typeorm';
 import { TYPES } from './types';
 
 (async () => {
@@ -30,6 +31,8 @@ import { TYPES } from './types';
   const esClient = await createElasticsearchClient(config);
 
   container.bind<Client>(TYPES.Elasticsearch).toConstantValue(esClient);
+
+  await connectOrm();
 
   await container.get<Server>(TYPES.Server).start();
 })();
