@@ -7,6 +7,8 @@ export const TYPES = {
   GraphQLContextFactory: Symbol.for('GraphQLContextFactory'),
   // Gateway
   SyllabusSubjectRepository: Symbol.for('SyllabusSubjectRepository'),
+  AccountRepository: Symbol.for('AccountRepository'),
+  SessionRepository: Symbol.for('SessionRepository'),
   // Usecase
   FindSyllabusUsecase: Symbol.for('FindSyllabusUsecase'),
   GetSubjectSearchTerms: Symbol.for('GetSubjectSearchTerms'),
