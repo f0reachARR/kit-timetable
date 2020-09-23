@@ -15,6 +15,7 @@ module.exports = {
   database: process.env.DB_DATABASE,
   synchronize: !isProd,
   logging: !isProd,
+  charset: 'UTF8MB4_GENERAL_CI',
   entities: [`${rootDir}/dist/interfaces/gateways/**/orm.js`],
   migrations: [`${rootDir}/dist/migrations/*.js`],
   cli: {
