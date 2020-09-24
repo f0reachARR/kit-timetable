@@ -5,7 +5,12 @@ require('dotenv').config({ path: path.resolve('../../.env') });
 
 const isProd = process.env.NODE_ENV === 'production';
 
-const rootDir = process.cwd();
+const rootDir = require.main
+  ? path.resolve(require.main.path, '../')
+  : process.cwd();
+
+console.log('ormconfig rootDir', rootDir);
+
 module.exports = {
   type: 'mysql',
   host: process.env.DB_HOST,
