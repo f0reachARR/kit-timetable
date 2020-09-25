@@ -1,8 +1,10 @@
 import { ContainerModule } from 'inversify';
 import { AccountRepository } from '../../applications/repositories/account';
+import { IdProviderRepository } from '../../applications/repositories/id-provider';
 import { SessionRepository } from '../../applications/repositories/session';
 import { SyllabusSubjectRepository } from '../../applications/repositories/syllabus-subject';
 import { AccountGateway } from '../../interfaces/gateways/account';
+import { IdProviderGateway } from '../../interfaces/gateways/id-provider';
 import { SessionGateway } from '../../interfaces/gateways/session';
 import { SyllabusSubjectGateway } from '../../interfaces/gateways/syllabus-subject';
 import { TYPES } from '../../types';
@@ -16,5 +18,8 @@ export const gatewayContainer = new ContainerModule((bind) => {
     .inSingletonScope();
   bind<SessionRepository>(TYPES.SessionRepository)
     .to(SessionGateway)
+    .inSingletonScope();
+  bind<IdProviderRepository>(TYPES.IdProviderRepository)
+    .to(IdProviderGateway)
     .inSingletonScope();
 });

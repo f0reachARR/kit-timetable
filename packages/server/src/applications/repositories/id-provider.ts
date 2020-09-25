@@ -1,9 +1,9 @@
 export interface IdProviderStartData {
-  state?: string;
+  state: string;
   url: string;
 }
 
 export interface IdProviderRepository {
   start(): Promise<IdProviderStartData>;
-  getUserId(data: IdProviderStartData, verifier: string): Promise<string>;
+  getUserId(verifier: string, state: string): Promise<string>;
 }

@@ -12,9 +12,16 @@ interface SessionConfig {
   secretKey: string;
 }
 
+interface TwitterAuthConfig {
+  consumerKey: string;
+  consumerSecret: string;
+  callbackUrl: string;
+}
+
 export interface Config {
   elasticsearch: ElasticsearchConfig;
   session: SessionConfig;
+  twitter: TwitterAuthConfig;
   port: number;
   getElasticsearchIndexFor(name: string): string;
 }
@@ -23,7 +30,9 @@ export interface Config {
 export class ConfigImpl implements Config {
   readonly elasticsearch: ElasticsearchConfig;
   readonly session: SessionConfig;
+  readonly twitter: TwitterAuthConfig;
   readonly port: number;
+
   constructor() {
     dotenv({ path: path.resolve('../../.env') });
 
@@ -35,6 +44,12 @@ export class ConfigImpl implements Config {
     this.session = {
       secretKey:
         process.env.SESSION_SECRET_KEY ?? randomBytes(32).toString('base64'),
+    };
+
+    this.twitter = {
+      consumerKey: process.env.TWITTER_CONSUMER_KEY ?? '',
+      consumerSecret: process.env.TWITTER_CONSUMER_SECRET ?? '',
+      callbackUrl: process.env.TWITTER_CALLBACK_URL ?? '',
     };
 
     this.port = Number(process.env.PORT ?? 3000);
