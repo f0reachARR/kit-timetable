@@ -5,9 +5,10 @@ require('dotenv').config({ path: path.resolve('../../.env') });
 
 const isProd = process.env.NODE_ENV === 'production';
 
-const rootDir = require.main
-  ? path.resolve(require.main.path, '../')
-  : process.cwd();
+const rootDir =
+  require.main && require.main.filename.includes('app')
+    ? path.resolve(require.main.path, '../')
+    : process.cwd();
 
 console.log('ormconfig rootDir', rootDir);
 
@@ -24,6 +25,6 @@ module.exports = {
   entities: [`${rootDir}/dist/interfaces/gateways/**/orm.js`],
   migrations: [`${rootDir}/dist/migrations/*.js`],
   cli: {
-    migrationsDir: `${rootDir}/src/migrations`,
+    migrationsDir: path.relative(process.cwd(), `${rootDir}/src/migrations`),
   },
 };
