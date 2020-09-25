@@ -4,7 +4,7 @@ import { IdProviderRepository } from '../../applications/repositories/id-provide
 import { SessionRepository } from '../../applications/repositories/session';
 import { SyllabusSubjectRepository } from '../../applications/repositories/syllabus-subject';
 import { AccountGateway } from '../../interfaces/gateways/account';
-import { IdProviderGateway } from '../../interfaces/gateways/id-provider';
+import { IdProviderTwitterGateway } from '../../interfaces/gateways/id-provider-twitter';
 import { SessionGateway } from '../../interfaces/gateways/session';
 import { SyllabusSubjectGateway } from '../../interfaces/gateways/syllabus-subject';
 import { TYPES } from '../../types';
@@ -19,7 +19,7 @@ export const gatewayContainer = new ContainerModule((bind) => {
   bind<SessionRepository>(TYPES.SessionRepository)
     .to(SessionGateway)
     .inSingletonScope();
-  bind<IdProviderRepository>(TYPES.IdProviderRepository)
-    .to(IdProviderGateway)
+  bind<IdProviderRepository>(TYPES.IdProviderTwitterRepository)
+    .to(IdProviderTwitterGateway)
     .inSingletonScope();
 });

@@ -10,7 +10,7 @@ import { TYPES } from '../../../types';
 import { IdProviderOrm } from './orm';
 
 @injectable()
-export class IdProviderGateway implements IdProviderRepository {
+export class IdProviderTwitterGateway implements IdProviderRepository {
   private readonly oauth: OAuth;
   private readonly orm: Repository<IdProviderOrm>;
   constructor(

@@ -1,6 +1,6 @@
 import { Entity, PrimaryColumn, Column, UpdateDateColumn } from 'typeorm';
 
-@Entity({ name: 'idprovider' })
+@Entity({ name: 'idprovider_twitter' })
 export class IdProviderOrm {
   @PrimaryColumn('bigint')
   id = '0';
