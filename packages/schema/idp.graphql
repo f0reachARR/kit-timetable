@@ -1,0 +1,24 @@
+enum IdProviderType {
+  twitter
+}
+
+type IdProviderStartInfo {
+  url: String!
+  state: String!
+}
+
+input IdProviderFinishResponse {
+  state: String!
+  type: IdProviderType!
+  verifier: String!
+}
+
+type IdProviderLoginResult {
+  account: Account!
+  sessionId: String!
+}
+
+extend type Mutation {
+  startIdpLogin(type: IdProviderType!): IdProviderStartInfo!
+  finishIdpLogin(response: IdProviderFinishResponse!): IdProviderLoginResult!
+}
