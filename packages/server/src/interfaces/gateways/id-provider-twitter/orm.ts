@@ -11,6 +11,9 @@ export class IdProviderOrm {
   @Column('varchar', { length: 128 })
   tokenSecret = '';
 
+  @Column('varchar', { length: 64, nullable: true })
+  associatedId: string | null = null;
+
   @UpdateDateColumn()
   updatedAt?: string;
 }

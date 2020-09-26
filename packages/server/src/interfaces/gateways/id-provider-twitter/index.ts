@@ -13,6 +13,7 @@ import { IdProviderOrm } from './orm';
 export class IdProviderTwitterGateway implements IdProviderRepository {
   private readonly oauth: OAuth;
   private readonly orm: Repository<IdProviderOrm>;
+  readonly type = 'twitter';
   constructor(
     @inject(TYPES.Config)
     { twitter }: Config,
@@ -86,5 +87,23 @@ export class IdProviderTwitterGateway implements IdProviderRepository {
     await this.orm.save(ormEntity);
 
     return userId;
+  }
+
+  async getInternalUserId(id: string) {
+    const entity = await this.orm.findOne({ id });
+
+    return entity?.associatedId ?? null;
+  }
+
+  async associateInternalUserId(id: string, internalId: string) {
+    const entity = await this.orm.findOne({ id });
+    if (!entity) {
+      throw new Error('Unknown id');
+    }
+    if (entity?.associatedId) {
+      throw new Error('This id is associated with other account');
+    }
+
+    await this.orm.update({ id }, { associatedId: internalId });
   }
 }
