@@ -19,7 +19,7 @@ export const gatewayContainer = new ContainerModule((bind) => {
   bind<SessionRepository>(TYPES.SessionRepository)
     .to(SessionGateway)
     .inSingletonScope();
-  bind<IdProviderRepository>(TYPES.IdProviderTwitterRepository)
+  bind<IdProviderRepository>(TYPES.IdProviderRepositories)
     .to(IdProviderTwitterGateway)
     .inSingletonScope();
 });

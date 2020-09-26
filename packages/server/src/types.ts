@@ -9,7 +9,7 @@ export const TYPES = {
   SyllabusSubjectRepository: Symbol.for('SyllabusSubjectRepository'),
   AccountRepository: Symbol.for('AccountRepository'),
   SessionRepository: Symbol.for('SessionRepository'),
-  IdProviderTwitterRepository: Symbol.for('IdProviderTwitterRepository'),
+  IdProviderRepositories: Symbol.for('IdProviderRepositories'),
   // Usecase
   FindSyllabusUsecase: Symbol.for('FindSyllabusUsecase'),
   GetSubjectSearchTerms: Symbol.for('GetSubjectSearchTerms'),
