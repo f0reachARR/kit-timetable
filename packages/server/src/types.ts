@@ -14,4 +14,5 @@ export const TYPES = {
   FindSyllabusUsecase: Symbol.for('FindSyllabusUsecase'),
   GetSubjectSearchTerms: Symbol.for('GetSubjectSearchTerms'),
   GetSubjectUsecase: Symbol.for('GetSubjectUsecase'),
+  StartIdpLoginUsecase: Symbol.for('StartIdpLoginUsecase'),
 };
