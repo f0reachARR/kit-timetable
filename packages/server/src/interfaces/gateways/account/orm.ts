@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity({ name: 'account' })
 export class AccountOrm {
   @PrimaryGeneratedColumn('uuid')
-  id = '';
+  id!: string;
 
   @Column('bool')
   verified = false;

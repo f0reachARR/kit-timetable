@@ -19,7 +19,7 @@ export class AccountGateway implements AccountRepository {
   }
 
   async create() {
-    const account = await this.orm.create();
+    const account = await this.orm.save(this.orm.create());
 
     return this.transformFromOrm(account);
   }
