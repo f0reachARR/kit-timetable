@@ -1,5 +1,5 @@
 import { Resolvers } from '../graphql.generated';
-import { startIdpLoginMutation } from './idp';
+import { startIdpLoginMutation, finishIdpLoginMutation } from './idp';
 import {
   syllabusQuery,
   subjectSearchTermsQuery,
@@ -14,5 +14,6 @@ export const resolvers: Resolvers = {
   },
   Mutation: {
     startIdpLogin: startIdpLoginMutation,
+    finishIdpLogin: finishIdpLoginMutation,
   },
 };

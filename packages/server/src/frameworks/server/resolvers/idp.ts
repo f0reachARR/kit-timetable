@@ -7,3 +7,11 @@ export const startIdpLoginMutation: MutationResolvers['startIdpLogin'] = async (
 ) => {
   return idpController.startIdpLogin(type);
 };
+
+export const finishIdpLoginMutation: MutationResolvers['finishIdpLogin'] = async (
+  _parent,
+  { response },
+  { idpController },
+) => {
+  return idpController.finishIdpLogin(response);
+};
