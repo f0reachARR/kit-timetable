@@ -1,8 +1,10 @@
+import { injectable } from 'inversify';
 import { Repository, getRepository } from 'typeorm';
 import { AccountRepository } from '../../../applications/repositories/account';
 import { AccountEntity } from '../../../entities/account';
 import { AccountOrm } from './orm';
 
+@injectable()
 export class AccountGateway implements AccountRepository {
   private orm: Repository<AccountOrm>;
   constructor() {
