@@ -19,7 +19,7 @@ module.exports = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  synchronize: !isProd,
+  synchronize: false,
   logging: !isProd,
   charset: 'UTF8MB4_GENERAL_CI',
   entities: [`${rootDir}/dist/interfaces/gateways/**/orm.js`],
