@@ -11,8 +11,8 @@ export class AccountGateway implements AccountRepository {
     this.orm = getRepository(AccountOrm);
   }
 
-  private transformFromOrm(account: AccountOrm) {
-    return AccountEntity.from({
+  private async transformFromOrm(account: AccountOrm) {
+    return await AccountEntity.from({
       userId: account.id,
       isVerified: account.verified,
     });
@@ -21,7 +21,7 @@ export class AccountGateway implements AccountRepository {
   async create() {
     const account = await this.orm.save(this.orm.create());
 
-    return this.transformFromOrm(account);
+    return await this.transformFromOrm(account);
   }
 
   async update(entity: AccountEntity) {

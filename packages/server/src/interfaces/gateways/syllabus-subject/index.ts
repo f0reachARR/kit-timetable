@@ -37,7 +37,7 @@ export class SyllabusSubjectGateway implements SyllabusSubjectRepository {
     });
 
     return result.body.found
-      ? SyllabusSubjectEntity.from(result.body._source)
+      ? await SyllabusSubjectEntity.from(result.body._source)
       : null;
   }
 
@@ -145,8 +145,10 @@ export class SyllabusSubjectGateway implements SyllabusSubjectRepository {
 
     return {
       totalCount: result.body.hits.total.value,
-      items: result.body.hits.hits.map((item) =>
-        SyllabusSubjectEntity.from(item._source),
+      items: await Promise.all(
+        result.body.hits.hits.map((item) =>
+          SyllabusSubjectEntity.from(item._source),
+        ),
       ),
     };
   }
