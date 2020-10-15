@@ -35,6 +35,22 @@ export class FindSyllabusInteractor implements FindSyllabusUsecase {
       throw new Error('query `date` is out of range');
     }
 
+    if (query.faculty && query.faculty?.length > 32) {
+      throw new Error('query `faculty` is too long');
+    }
+
+    if (query.category && query.category?.length > 32) {
+      throw new Error('query `category` is too long');
+    }
+
+    if (query.field && query.field?.length > 32) {
+      throw new Error('query `field` is too long');
+    }
+
+    if (query.program && query.program?.length > 32) {
+      throw new Error('query `program` is too long');
+    }
+
     return query;
   }
 
