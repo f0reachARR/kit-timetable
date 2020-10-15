@@ -105,6 +105,10 @@ input SubjectSearchQuery {
   available: Boolean
   flags: [SubjectFlags!]
   title: String
+  faculty: String
+  category: String
+  field: String
+  program: String
 }
 
 type SubjectSearchTerms {
