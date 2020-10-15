@@ -108,6 +108,38 @@ export class SyllabusSubjectGateway implements SyllabusSubjectRepository {
       });
     }
 
+    if (query.category) {
+      must.push({
+        terms: {
+          'categories.category': [query.category],
+        },
+      });
+    }
+
+    if (query.faculty) {
+      must.push({
+        terms: {
+          'categories.faculty': [query.faculty],
+        },
+      });
+    }
+
+    if (query.program) {
+      must.push({
+        terms: {
+          'categories.program': [query.program],
+        },
+      });
+    }
+
+    if (query.field) {
+      must.push({
+        terms: {
+          'categories.field': [query.field],
+        },
+      });
+    }
+
     if (typeof query.title === 'string' && query.title.length > 0) {
       must.push({
         simple_query_string: {
