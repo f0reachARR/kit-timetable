@@ -11,7 +11,12 @@ export interface SyllabusSubjectRepositoryQuery {
     'internship' | 'igp' | 'al' | 'pbl' | 'pt' | 'univ3' | 'kyoto' | 'lottery'
   >;
   title?: string;
+  category?: string;
+  faculty?: string;
+  program?: string;
+  field?: string;
 }
+
 export interface SyllabusSubjectRepositoryFindRequest {
   query: SyllabusSubjectRepositoryQuery;
   from: number;
